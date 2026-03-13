@@ -15,11 +15,24 @@ st.markdown(
 
 st.markdown("---")
 
-model = pickle.load(open("model.pkl", "rb"))
-cols = pickle.load(open("columns.pkl", "rb"))
+
 
 data = pd.read_csv("cars.csv")
+data = pd.read_csv("cars.csv")
 
+data = data.dropna()
+
+data = pd.get_dummies(data, drop_first=True)
+
+X = data.drop("price", axis=1)
+y = data["price"]
+
+from sklearn.ensemble import RandomForestRegressor
+
+model = RandomForestRegressor()
+model.fit(X, y)
+
+cols = X.columns
 
 # ======================
 # SIDEBAR INPUTS
